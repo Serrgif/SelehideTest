@@ -1,4 +1,33 @@
 package ru.netology;
 
+import org.junit.jupiter.api.Test;
+
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
+
 public class DeliveryTestNegative {
+    public static String setLocalDate(int days) {
+        return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy",
+                new Locale("ru")));
+    }
+    @Test
+    void negativeTestV1() {
+        String date = setLocalDate(5);
+        open("http://localhost:9999");
+        $("[data-test-id=date] input").doubleClick().sendKeys(date);
+        $("[data-test-id=name] input").setValue("Новиков Сергей");
+        $("[data-test-id=phone] input").setValue("+79993455445");
+        $("[data-test-id=agreement]").click();
+        $$("button").find(exactText("Забронировать")).click();
+        $(byText("Поле обязательно для заполнения")).shouldBe(visible);
+    }
+
+
+
 }
