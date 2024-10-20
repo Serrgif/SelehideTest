@@ -73,9 +73,9 @@ public class DeliveryTestNegative {
         $("[data-test-id=phone] input").setValue("+798989");
         $("[data-test-id=agreement]").click();
         $$("button").find(exactText("Забронировать")).click();
-        $(byText("Заказ на выбранную дату невозможен")).shouldBe(visible);
+        $(byText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.")).shouldBe(visible);
     }
-    
+
 
 
 
