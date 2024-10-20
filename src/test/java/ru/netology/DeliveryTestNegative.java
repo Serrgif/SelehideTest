@@ -27,6 +27,18 @@ public class DeliveryTestNegative {
         $$("button").find(exactText("Забронировать")).click();
         $(byText("Поле обязательно для заполнения")).shouldBe(visible);
     }
+    @Test
+    void negativeTestV2() {
+        String date = setLocalDate(4);
+        open("http://localhost:9999");
+        $("[data-test-id=city] input").setValue("Токио");
+        $("[data-test-id=date] input").doubleClick().sendKeys(date);
+        $("[data-test-id=name] input").setValue("Новиков Сергей");
+        $("[data-test-id=phone] input").setValue("+79993456565");
+        $("[data-test-id=agreement]").click();
+        $$("button").find(exactText("Забронировать")).click();
+        $(byText("Доставка в выбранный город недоступна")).shouldBe(visible);
+    }
 
 
 
