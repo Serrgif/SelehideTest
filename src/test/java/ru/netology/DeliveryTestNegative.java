@@ -75,6 +75,17 @@ public class DeliveryTestNegative {
         $$("button").find(exactText("Забронировать")).click();
         $(byText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.")).shouldBe(visible);
     }
+    void negativeTestV6() {
+        String date = setLocalDate(4);
+        open("http://localhost:9999");
+        $("[data-test-id=city] input").setValue("Санкт-Петербург");
+        $("[data-test-id=date] input").doubleClick().sendKeys(date);
+        $("[data-test-id=name] input").setValue("Новиков Сергей");
+        $("[data-test-id=phone] input").setValue("+79993454545");
+        $$("button").find(exactText("Забронировать")).click();
+        $("[data-test-id='agreement'].input_invalid .checkbox__text")
+                .shouldHave(exactText("Я соглашаюсь с условиями обработки и использования моих персональных данных"));
+    }
 
 
 
